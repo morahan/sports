@@ -53,20 +53,31 @@
 // v2.2 ------------
 // let self = team;
 
-
-
 let team = {
   players: [],
 
-  createPlayer: function(firstName, lastName, games, sacks, id){
+  Player: function(firstName, lastName, games, sacks, id){
     this.firstName =  firstName;
     this.lastName =  lastName;
     this.games =  games;
     this.sacks =  sacks;
     this.id = id;
-    let numPlayers = 0;
-    numPlayers ++;
+    let self = this;
+    let push = function(){
+      for (let key in Player){
+        self.players.push(key)
+      }
+    }
+    push();
+
+    // totalPlayers:  function(){
+    //   for (let key in  new createPlayer){
+    //     this.players.push([key])
+    //   }
+    // }
   },
+
+
 
   totalPlayers: function(){
     return this.players.length;
@@ -87,10 +98,16 @@ let team = {
     }
   }
 }
-let mike = new team.createPlayer("Michael", "Morahan", 1, 2, 1);
-team.players.push(mike);
 
-console.log(team.totalPlayers())
+
+let mike = new team.Player("Michael", "Morahan", 1, 2, 1);
+// team.players.push(mike);
+let mel = new team.Player("Mel", "Lola", 3, 5, 2);
+// team.players.push(mel);
+// console.log(team.players)
+
+// console.log(team.players[0]);
+console.log(team.players)
 
 // let mike = new team.createPlayer("Michael", "Morahan", 1, 2, 1);
 // console.log(team.createPlayer.totalPlayers)

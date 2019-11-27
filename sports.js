@@ -53,6 +53,71 @@
 // v2.2 ------------
 // let self = team;
 
+// let team = {
+//   players: [],
+//
+//   Player: function(firstName, lastName, games, sacks, id, contribution){
+//     this.firstName =  firstName;
+//     this.lastName =  lastName;
+//     this.games =  games;
+//     this.sacks =  sacks;
+//     this.id = id;
+//     this.contribution = contribution(mike);
+//     // let self = this;
+//     // let push = function(){
+//     //   for (let key in Player){
+//     //     self.players.push(key)
+//     //   }
+//     // }
+//     // push();
+//
+//     // totalPlayers:  function(){
+//     //   for (let key in  new createPlayer){
+//     //     this.players.push([key])
+//     //   }
+//     // }
+//   },
+//
+//
+//
+//   totalPlayers: function(){
+//     return this.players.length;
+//   },
+//
+//   totalSacks: function() {
+//     for (let i = 0; i < this.players.length; i++){
+//       let sumSacks = 0;
+//       sumSacks += this.player[i].sacks;
+//     }
+//   },
+//
+//   contribution: function(individual){
+//     if (individual.total > individual.sacks) {
+//       let result = (individual.sacks / individual.total)
+//       return result;
+//     } else {
+//       return "Error! Total is not greater than sacks";
+//     }
+//   }
+// }
+//
+//
+// let mike = new team.Player("Michael", "Morahan", 1, 2, 1, team.contribution());
+// // team.players.push(mike);
+// // let mel = new team.Player("Mel", "Lola", 3, 5, 2);
+// // team.players.push(mel);
+// // console.log(team.players)
+//
+// // console.log(team.players[0]);
+// console.log(team.players)
+//
+// // let mike = new team.createPlayer("Michael", "Morahan", 1, 2, 1);
+// // console.log(team.createPlayer.totalPlayers)
+// // console.log(team.contribution(mike));
+// // player.i.sacks -->
+//
+
+// V 2.3:
 let team = {
   players: [],
 
@@ -62,54 +127,37 @@ let team = {
     this.games =  games;
     this.sacks =  sacks;
     this.id = id;
-    let self = this;
-    let push = function(){
-      for (let key in Player){
-        self.players.push(key)
-      }
-    }
-    push();
-
-    // totalPlayers:  function(){
-    //   for (let key in  new createPlayer){
-    //     this.players.push([key])
-    //   }
-    // }
   },
-
-
 
   totalPlayers: function(){
     return this.players.length;
   },
 
   totalSacks: function() {
-    for (let i = 0; i < this.totalPlayers; i++){
-      let sumSacks = 0;
+    let sumSacks = 0;
+    for (let i = 0; i < team.players.length; i++){
+      sumSacks += team.players[i].sacks;
     }
+    return sumSacks;
   },
 
-  contribution: function(individual){
-    if (individual.total > individual.sacks) {
-      let result = (individual.sacks / individual.total)
-      return result;
-    } else {
-      return "Total is not greater than sacks";
+  contribution: function(){
+    for (let i = 0; i < team.players.length; i++) {
+      if (team.totalSacks() > team.players[i].sacks) {
+        let result = (Math.round((team.players[i].sacks / team.totalSacks()) * 100)) + "%";
+        team.players[i].contribution = result;
+      } else {
+        return "Error! Total is not greater than individual sacks";
+      }
     }
   }
 }
 
+let mike = new team.Player("Michael", "Morahan", 1, 8, 1);
+team.players.push(mike);
 
-let mike = new team.Player("Michael", "Morahan", 1, 2, 1);
-// team.players.push(mike);
 let mel = new team.Player("Mel", "Lola", 3, 5, 2);
-// team.players.push(mel);
-// console.log(team.players)
+team.players.push(mel);
 
-// console.log(team.players[0]);
-console.log(team.players)
-
-// let mike = new team.createPlayer("Michael", "Morahan", 1, 2, 1);
-// console.log(team.createPlayer.totalPlayers)
-// console.log(team.contribution(mike));
-// player.i.sacks -->
+team.contribution();
+console.log(team.players[0])

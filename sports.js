@@ -2,6 +2,20 @@
 // s - smpl
 // g - gnrtn
 // cont - Ownrshp
+// tm - sng
+//
+// Goals:
+// - create players from constructor function
+// - attribute contribution to each player
+// - total sacks:
+// - create games
+// - create array of sacs- games
+// - create season averages
+// - create contribution arrays - contribution per game
+// - create teams from constructor function --> array of teams
+// - compare teams:
+// - players can switch teams
+// -
 
 // V1.1 -----
 // function Player (firstName, lastName, games, sacks, total){
@@ -118,13 +132,70 @@
 //
 
 // V 2.3:
+// let team = {
+//   players: [],
+//
+//   Player: function(firstName, lastName, games, sacks, id){
+//     this.firstName =  firstName;
+//     this.lastName =  lastName;
+//     this.games =  games;
+//     this.sacks =  sacks;
+//     this.id = id;
+//   },
+//
+//   totalPlayers: function(){
+//     return this.players.length;
+//   },
+//
+//   totalSacks: function() {
+//     let sumSacks = 0;
+//     for (let i = 0; i < team.players.length; i++){
+//       sumSacks += team.players[i].sacks;
+//     }
+//     return sumSacks;
+//   },
+//
+//   contribution: function(){
+//     for (let i = 0; i < team.players.length; i++) {
+//       if (team.totalSacks() >= team.players[i].sacks) {
+//         let result = (Math.round((team.players[i].sacks / team.totalSacks()) * 100)) + "%";
+//         team.players[i].contribution = result;
+//       } else {
+//         return "Error! Total is not greater than or equal to individual sacks";
+//       }
+//     }
+//   }
+// }
+//
+// let mike = new team.Player("Michael", "Morahan", 1, 8, 1);
+// team.players.push(mike);
+//
+// let mel = new team.Player("Mel", "Lola", 3, 1, 2);
+// team.players.push(mel);
+//
+// team.contribution();
+// console.log(team.players[0])
+
+
+// v 2.4:
 let team = {
   players: [],
+  games: function(){
+    let count = 0;
+    for (let i = 0; i < team.players.length; i++) {
+      if (team.players[i].sacks.length > count){
+        count = team.players[i].sacks.length;
+      }
+    }
+    return count;
+  },
 
-  Player: function(firstName, lastName, games, sacks, id){
+  totalSacksPerGame: [],
+
+  Player: function(firstName, lastName,  sacks, id){
     this.firstName =  firstName;
     this.lastName =  lastName;
-    this.games =  games;
+    // this.gamesPlayed =  gamesPlayed;
     this.sacks =  sacks;
     this.id = id;
   },
@@ -133,31 +204,51 @@ let team = {
     return this.players.length;
   },
 
-  totalSacks: function() {
+  calculateSacks: function() {
     let sumSacks = 0;
-    for (let i = 0; i < team.players.length; i++){
-      sumSacks += team.players[i].sacks;
+    let self = this;
+    for (let i = 0; i < team.players.length; i+2){
+      for (let x = 0; x < team.players[i].sacks.length; x++) {
+        sumSacks += team.players[i].sacks[x];
+        team.totalSacksPerGame.push(team.players[i].sacks[x] + team.players[i+1].sacks[x]);
+      }
+    
     }
-    return sumSacks;
   },
 
   contribution: function(){
-    for (let i = 0; i < team.players.length; i++) {
-      if (team.totalSacks() > team.players[i].sacks) {
-        let result = (Math.round((team.players[i].sacks / team.totalSacks()) * 100)) + "%";
-        team.players[i].contribution = result;
-      } else {
-        return "Error! Total is not greater than individual sacks";
+    for (let x = 0; x < team.games.lenght; x++) {
+      for (let i = 0; i < team.players.length; i++) {
+        if (team.calculateSacks() >= team.players[i].sacks) {
+          let result = (Math.round((team.players[i].sacks / team.calculateSacks()) * 100)) + "%";
+          team.players[i].contribution = result;
+        } else {
+          return "Error! Total is not greater than or equal to individual sacks";
+        }
       }
     }
-  }
+
+  },
+
+  // gamesPlayed: function() {
+  //   for (let i = 0; i < team.players.length; i++) {
+  //     for (let x = 0; x < team.players.gamesPlayed; x++) {
+  //       team.games.push(team.players[i]);
+  //     }
+  //   }
+  // }
 }
 
-let mike = new team.Player("Michael", "Morahan", 1, 8, 1);
+let mike = new team.Player("Michael", "Morahan", [1,2,3], 1);
 team.players.push(mike);
 
-let mel = new team.Player("Mel", "Lola", 3, 5, 2);
+let mel = new team.Player("Mel", "Lola", [3,2,1], 2);
 team.players.push(mel);
 
-team.contribution();
-console.log(team.players[0])
+// team.contribution();
+
+// team.gamesPlayed();
+console.log(team.games())
+team.calculateSacks();
+console.log(team.totalSacksPerGame);
+// console.log(team.players)

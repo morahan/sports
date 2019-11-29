@@ -5,9 +5,9 @@
 // tm - sng
 //
 // Goals:
-// - create players from constructor function
-// - attribute contribution to each player
-// - total sacks:
+// -\/ create players from constructor function
+// -\/ attribute contribution to each player
+// - total sacks per game:
 // - create games
 // - create array of sacs- games
 // - create season averages
@@ -39,7 +39,8 @@
 //
 // let mike = new Player("Michael", "Morahan", 1, 2, 3);
 // console.log(winContribution(mike))
-// // ------
+
+// // ------ v1.2
 
 // function Player(firstName, lastName, games, sacks, total){
 //   this.firstName =  firstName;
@@ -177,10 +178,22 @@
 // console.log(team.players[0])
 
 
-// v 2.4:
+// v 2.5:
 let team = {
+  Player: function(firstName, lastName,  sacks, id) {
+    this.firstName =  firstName;
+    this.lastName =  lastName;
+    this.sacks =  sacks;
+    this.id = id;
+  },
+
   players: [],
-  games: function(){
+
+  totalPlayers: function(){
+    return this.players.length;
+  },
+
+  games: function() {
     let count = 0;
     for (let i = 0; i < team.players.length; i++) {
       if (team.players[i].sacks.length > count){
@@ -192,32 +205,19 @@ let team = {
 
   totalSacksPerGame: [],
 
-  Player: function(firstName, lastName,  sacks, id){
-    this.firstName =  firstName;
-    this.lastName =  lastName;
-    // this.gamesPlayed =  gamesPlayed;
-    this.sacks =  sacks;
-    this.id = id;
-  },
-
-  totalPlayers: function(){
-    return this.players.length;
-  },
-
   calculateSacks: function() {
-    let sumSacks = 0;
-    let self = this;
-    for (let i = 0; i < team.players.length; i+2){
-      for (let x = 0; x < team.players[i].sacks.length; x++) {
-        sumSacks += team.players[i].sacks[x];
-        team.totalSacksPerGame.push(team.players[i].sacks[x] + team.players[i+1].sacks[x]);
+    let mostGamesPlayed = team.players.reduce((p, c, i, a) => a[p].length > c.length ? p : i, 0);
+    for (let i = 0; i < team.players[mostGamesPlayed].sacks.length; i++) {
+      for (let x = 0; x < team.players.length; x++) {
+        // error in two lines below!-/
+        let totalSacksInOneGame = (team.players[i].sacks[x] + team.players[(i+1)].sacks[x]);
+        team.totalSacksPerGame.push(totalSacksInOneGame);
       }
-    
     }
   },
 
   contribution: function(){
-    for (let x = 0; x < team.games.lenght; x++) {
+    for (let x = 1; x < team.games.lenght; x++) {
       for (let i = 0; i < team.players.length; i++) {
         if (team.calculateSacks() >= team.players[i].sacks) {
           let result = (Math.round((team.players[i].sacks / team.calculateSacks()) * 100)) + "%";
@@ -227,16 +227,7 @@ let team = {
         }
       }
     }
-
-  },
-
-  // gamesPlayed: function() {
-  //   for (let i = 0; i < team.players.length; i++) {
-  //     for (let x = 0; x < team.players.gamesPlayed; x++) {
-  //       team.games.push(team.players[i]);
-  //     }
-  //   }
-  // }
+  }
 }
 
 let mike = new team.Player("Michael", "Morahan", [1,2,3], 1);
@@ -246,9 +237,8 @@ let mel = new team.Player("Mel", "Lola", [3,2,1], 2);
 team.players.push(mel);
 
 // team.contribution();
-
-// team.gamesPlayed();
-console.log(team.games())
 team.calculateSacks();
 console.log(team.totalSacksPerGame);
-// console.log(team.players)
+
+
+// firstName, lastName,  sacks,

@@ -274,16 +274,27 @@ let team = {
       }
     },
 
-    game1: [
+    contribution: function(playerId, gameID){
+      // return result of this.games.id[].totalSacks
+      // return result result to players.id[i].conttibution
+    },
+
+    id: [
       {
         totalPlayers: function(){
           Object.keys(this.players).length;
         },
-        sacks: this.totalGameSacks(0),
+        totalSacks: this.totalGameSacks(0),
+        contribution: function(){},
+      },
+      {
+        totalPlayers: function(){
+          Object.keys(this.players).length;
+        },
+        totalSacks: this.totalGameSacks(0),
         contribution: function(){},
       }
-    ],
-    game2: []
+    ]
   },
 
   players: {
@@ -300,7 +311,7 @@ let team = {
       name: "Mi Mo",
       games: [],
       sacks: [],
-      contribution: function(){};
+      contribution: this.games.contribution(playerId, gameId);
       },
       {
       name: "Gordon Zhu",

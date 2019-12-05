@@ -248,76 +248,107 @@
 
 
 // ----- 2.6 - reOrganization
+
 // let team = {
+//   games: {
+//     create: function(id, opponent, players) {
+//       //                (#,   "",      [])
+//       this.id =  id;
+//       this.opponent = opponent;
+//       this.players = players;
+//       let totalSacks = this.totalGameSacks();
+//     },
+//
+//     totalGameSacks: function(gameNumber){
+//       let totalSacksArr = [];
+//       for (let x = 0; x < (Object.keys(this.games).length - 2); x++) {
+//         for (let i = 0; i < Object.keys(this.players.id).length; i++) {
+//           let gameTotalSacks = 0;
+//           gameTotalSacks += this.players.id[i].sacks[this.games[x]];
+//           totalSacksArr.push(gameTotalSacks);
+//         }
+//       }
+//     },
+//
+//     contribution: function(playerId, gameID){
+//       // return result of this.games.id[].totalSacks
+//       // return result result to players.id[i].conttibution
+//     },
+//
+//     id: 0
+//   },
+//
+//   players: {
+//     create: {
+//       entry: function(firstName, lastName,  sacksArr, id){
+//         this.firstName =  firstName;
+//         this.lastName =  lastName;
+//         this.sacks =  sacksArr;
+//         this.fullName = firstName + lastName;
+//         this.id = id;
+//         return this;
+//       },
+//
+//       addToList: function(){
+//         team.players.list.push(team.players.create.entry());
+//       }
+//     },
+//     list: [ ]
+//   }
+// }
+//
+// team.players.create.entry("Mi", "Mo", [0,1,2,3], 1);
+// team.players.create.addToList();
+//
+// console.log(team.players.list)
+
+
+// {
+//   name: "Example Player",
 //   games: [],
-//   players.id: []
+//   sacks: [],
+//   contribution: function(){
+//     return team.games.contribution(playerId, gameId)
+//   }
 // }
 
+// ------- radical simplificiation to solve undefined result!-------------- Return This God Dammit!@! Ah F**k!!!
+
+
 let team = {
-  games: {
-    create: function(id, opponent, players) {
-      //                (#,   "",      [])
-      this.id =  id;
-      this.opponent = opponent;
-      this.players = players;
-      let totalSacks = this.totalGameSacks();
-    },
-
-    totalGameSacks: function(gameNumber){
-      let totalSacksArr = [];
-      for (let x = 0; x < (Object.keys(this.games).length - 2); x++) {
-        for (let i = 0; i < Object.keys(this.players.id).length; i++) {
-          let gameTotalSacks = 0;
-          gameTotalSacks += this.players.id[i].sacks[this.games[x]];
-          totalSacksArr.push(gameTotalSacks);
-        }
-      }
-    },
-
-    contribution: function(playerId, gameID){
-      // return result of this.games.id[].totalSacks
-      // return result result to players.id[i].conttibution
-    },
-
-    id: [
-      {
-        totalPlayers: function(){
-          Object.keys(this.players).length;
-        },
-        totalSacks: this.totalGameSacks(0),
-        contribution: function(){},
-      },
-      {
-        totalPlayers: function(){
-          Object.keys(this.players).length;
-        },
-        totalSacks: this.totalGameSacks(0),
-        contribution: function(){},
-      }
-    ]
+  create: function Player(firstName, lastName,  sacksArr, id){
+      this.firstName =  firstName;
+      this.lastName =  lastName;
+      this.sacks =  sacksArr;
+      this.fullName = this.firstName + " " + this.lastName;
+      this.id = id;
+      team.listOfPlayers.push(this)
+      return this;
   },
-
-  players: {
-    create: function(firstName, lastName,  sacks, id) {
-        this.firstName =  firstName;
-        this.lastName =  lastName;
-        this.sacks =  sacks;
-        this.fullName = firstName + lastName;
-        this.id = id;
-    },
-
-    id: [
-      {
-      name: "Mi Mo",
-      games: [],
-      sacks: [],
-      contribution: this.games.contribution(playerId, gameId);
-      },
-      {
-      name: "Gordon Zhu",
-      games: [],
-      sacks: [],
-      contribution: function(){};
-    }
-  }
+  listOfPlayers: []
 }
+
+// Both of the following push the same player into the list --- why!?
+team.create("Mi", "Mo", [0,1,2,3], 1)
+team.create("Yao", "Ming", [3,5,62,63], 7)
+console.log(team.listOfPlayers);
+
+// team.listOfPlayers.push(team.create("Mi", "Mo", [0,1,2,3], 1));
+// team.listOfPlayers.push(team.create("Yao", "Ming", [3,5,62,63], 7));
+// console.log(team.listOfPlayers)
+
+
+
+
+// // ideal list:
+// [ { firstName: 'Mi',
+//     lastName: 'Mo',
+//     sacks: [ 0, 1, 2, 3 ],
+//     fullName: 'MiMo',
+//     id: 1 },
+//   { firstName: 'Yao',
+//     lastName: 'Ming',
+//     sacks: [ 3, 5, 62, 63 ],
+//     fullName: 'YaoMing',
+//     id: 7 }
+// ]

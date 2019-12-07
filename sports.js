@@ -322,8 +322,9 @@ let team = {
       this.sacks =  sacksArr;
       this.fullName = this.firstName + " " + this.lastName;
       this.id = id;
-      team.listOfPlayers.push(this)
-      return this;
+      let player = this;
+
+      team.listOfPlayers.push(player)
   },
   listOfPlayers: []
 }

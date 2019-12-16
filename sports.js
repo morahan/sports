@@ -722,4 +722,4 @@ console.log(league.teams.listOfTeams)
 // -------------- auto run all team or player stats after one command.  Have one command trigger all stats to be created
 
 
-//  new comment to test terminal git commit
+//  new comment to test git commit from GitHub Mac APP

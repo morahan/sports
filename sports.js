@@ -722,4 +722,4 @@ console.log(league.teams.listOfTeams)
 // -------------- auto run all team or player stats after one command.  Have one command trigger all stats to be created
 
 
-//  new commit - first proper from terminal
+//  new commit - first proper from terminal.  Staying fresh on terminal

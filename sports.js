@@ -723,6 +723,4 @@ console.log(league.teams.listOfTeams)
 
 
 //  new commit - first proper from terminal.  Staying fresh on terminal
-// new comment from branch two
-// adding new comment to first branch 
-// All new comments added to master branch after two merges and a clone back to desktop.  Starting to learn
+//  beating in my head how to branch and commit from terminal
